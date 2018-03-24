@@ -16,13 +16,6 @@ class InstagramClient {
         return URLSession(configuration: self.configuration)
     }()
     
-    private var clientInformation: (clientID: String?, clientRedirectURI: String?)? {
-        if let path = Bundle.main.path(forResource: "InstagramClient", ofType: "plist"), let info = NSDictionary(contentsOfFile: path) as? [String: String] {
-            return (info["ClientID"], info["RedirectURI"])
-        }
-        return nil
-    }
-    
     // MARK: - Initializers
     init(configuration: URLSessionConfiguration) {
         self.configuration = configuration
