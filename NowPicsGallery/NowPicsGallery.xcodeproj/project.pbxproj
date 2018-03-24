@@ -13,6 +13,8 @@
 		63E932282066BB290078CA68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63E932272066BB290078CA68 /* Assets.xcassets */; };
 		63E9322B2066BB290078CA68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63E932292066BB290078CA68 /* LaunchScreen.storyboard */; };
 		63E932362066BB290078CA68 /* NowPicsGalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E932352066BB290078CA68 /* NowPicsGalleryTests.swift */; };
+		63E932412066BD060078CA68 /* InstagramClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E932402066BD060078CA68 /* InstagramClient.swift */; };
+		63E932432066BD390078CA68 /* InstagramClient.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63E932422066BD390078CA68 /* InstagramClient.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		63E932312066BB290078CA68 /* NowPicsGalleryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NowPicsGalleryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63E932352066BB290078CA68 /* NowPicsGalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPicsGalleryTests.swift; sourceTree = "<group>"; };
 		63E932372066BB290078CA68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63E932402066BD060078CA68 /* InstagramClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramClient.swift; sourceTree = "<group>"; };
+		63E932422066BD390078CA68 /* InstagramClient.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = InstagramClient.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 				63E932272066BB290078CA68 /* Assets.xcassets */,
 				63E932292066BB290078CA68 /* LaunchScreen.storyboard */,
 				63E9322C2066BB290078CA68 /* Info.plist */,
+				63E932402066BD060078CA68 /* InstagramClient.swift */,
+				63E932422066BD390078CA68 /* InstagramClient.plist */,
 			);
 			path = NowPicsGallery;
 			sourceTree = "<group>";
@@ -179,6 +185,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63E932432066BD390078CA68 /* InstagramClient.plist in Resources */,
 				63E9322B2066BB290078CA68 /* LaunchScreen.storyboard in Resources */,
 				63E932282066BB290078CA68 /* Assets.xcassets in Resources */,
 				63E932262066BB290078CA68 /* Main.storyboard in Resources */,
@@ -201,6 +208,7 @@
 			files = (
 				63E932232066BB290078CA68 /* ViewController.swift in Sources */,
 				63E932212066BB290078CA68 /* AppDelegate.swift in Sources */,
+				63E932412066BD060078CA68 /* InstagramClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

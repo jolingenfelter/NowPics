@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ClientID</key>
+	<string>ad61db1c2372494491397e22bdba59d8</string>
+	<key>ClientSecret</key>
+	<string>0df71503d320423f8c2a1574c3785a29</string>
+	<key>RedirectURI</key>
+	<string>https://elfsight.com/service/generate-instagram-access-token/</string>
+</dict>
+</plist>
