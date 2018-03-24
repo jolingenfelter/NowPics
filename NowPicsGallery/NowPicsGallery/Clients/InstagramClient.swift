@@ -6,4 +6,8 @@
 //  Copyright © 2018 Joanna LINGENFELTER. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class InstagramClient {
+    
+}
