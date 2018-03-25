@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InstagramClient {
+class InstagramClient: APIClient {
     
     // MARK: - Types
     private struct KeychainKeys {
@@ -19,7 +19,7 @@ class InstagramClient {
     
     static let shared = InstagramClient()
     
-    private let session: URLSession
+    internal let session: URLSession
     private let keychain: KeychainSwift
     private let API: InstagramAPI
     
