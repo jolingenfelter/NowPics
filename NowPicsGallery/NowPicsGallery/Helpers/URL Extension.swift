@@ -10,16 +10,18 @@ import UIKit
 
 extension URL {
     
-    func appendParameters(_ parameters: [String: Any]) -> URL? {
+    func appendParameters(_ parameters: [String: Any]?) -> URL? {
         guard var components = URLComponents(url: self, resolvingAgainstBaseURL: true) else { return nil }
         var queryItems = components.queryItems ?? []
         
-        for parameter in parameters {
-            let item = URLQueryItem(name: parameter.key, value: "\(parameter.value)")
-            queryItems.append(item)
+        if let parameters = parameters {
+            for parameter in parameters {
+                let item = URLQueryItem(name: parameter.key, value: "\(parameter.value)")
+                queryItems.append(item)
+            }
         }
         
-        components = queryItems
+        components.queryItems = queryItems
         
         guard let url = components.url else { return nil }
         

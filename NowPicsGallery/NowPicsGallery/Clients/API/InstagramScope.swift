@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum InstagramScope: String {
+enum InstagramScope: String {
     case basic
     case publicContent = "public_content"
     case followerList = "follower_list"

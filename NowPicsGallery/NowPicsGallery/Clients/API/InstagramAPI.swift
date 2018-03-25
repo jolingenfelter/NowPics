@@ -8,9 +8,9 @@
 
 import Foundation
 
-class InstagramAPI {
+struct InstagramAPI {
     
-    private enum APIBaseURL {
+    private struct APIBaseURL {
         static var unauthorized = "https://api.instagram.com/oauth/authorize"
         static var authorized = "https://api.instagram.com/v1"
         
@@ -23,6 +23,7 @@ class InstagramAPI {
         return nil
     }
     
+    // MARK: - Build URL's
     func buildAuthorizationURL(scopes: [InstagramScope]) -> URL? {
         guard var components = URLComponents(string: APIBaseURL.unauthorized)  else { return nil}
         
@@ -41,8 +42,8 @@ class InstagramAPI {
         return url
     }
     
-    func buildRequest(endpoint: String, with accessToken: String?, and parameters: [String: Any]) -> URLRequest? {
-        guard let url = URL(string: APIBaseURL.authorized + endpoint)?.appendParameters(["access_token" : accessToken ?? ""]) else {
+    func buildRequest(endpoint: String, with accessToken: String?) -> URLRequest? {
+        guard let url = URL(string: APIBaseURL.authorized + endpoint)?.appendParameters(["access_token" : accessToken ?? ""])else {
             return nil
         }
         
@@ -50,12 +51,3 @@ class InstagramAPI {
     }
     
 }
-
-
-
-
-
-
-
-
-
