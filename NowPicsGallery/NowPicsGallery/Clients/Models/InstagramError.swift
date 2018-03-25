@@ -6,7 +6,7 @@
 //  Copyright © 2018 Joanna LINGENFELTER. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum InstagramError: Error {
     case invalidClientCredentials
@@ -14,5 +14,5 @@ enum InstagramError: Error {
     case missingAccessToken
     case dataParsingError(message: String)
     case failureToDownloadData(message: String)
-    case unknownError
+    case unknownError(message: String)
 }
