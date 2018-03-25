@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window.backgroundColor = .white
         window.makeKeyAndVisible()
+        InstagramClient.shared.logOut()
         
         if !InstagramClient.shared.isAuthenticated {
             let loginController = LoginViewController()

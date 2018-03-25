@@ -30,6 +30,14 @@ class InstagramClient: APIClient {
         API = InstagramAPI()
     }
     
+    // MARK: - Authorization
+    public func authorizationRequest(scopes: [InstagramScope]) throws -> URLRequest {
+        guard let request = API.buildAuthorizationURLRequest(scopes: scopes) else {
+            throw InstagramError.invalidRequest(message: "Error building web request")
+        }
+        return request
+    }
+    
     // MARK: - Fetch Media
     func fetchFromInstagram<T: Decodable>(withScopes: [InstagramScope], endpoint: String, parameters: [String: Any]?, success: ((_ data: T?) -> Void)?, failure: ((Error) -> Void)?) {
         guard let accessToken = retrieveAccessToken() else {

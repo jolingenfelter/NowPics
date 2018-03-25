@@ -17,8 +17,8 @@ struct InstagramAPI {
     }
     
     private var clientInformation: (clientID: String?, clientRedirectURI: String?)? {
-        if let path = Bundle.main.path(forResource: "InstagramClient", ofType: "plist"), let info = NSDictionary(contentsOfFile: path) as? [String: String] {
-            return (info["ClientID"], info["RedirectURI"])
+        if let path = Bundle.main.path(forResource: "InstagramClient", ofType: "plist"), let info = NSDictionary(contentsOfFile: path) as? [String: String], let clientID = info["ClientID"], let redirectURI = info["RedirectURI"] {
+            return (clientID, redirectURI)
         }
         return nil
     }
