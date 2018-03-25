@@ -10,4 +10,5 @@ import Foundation
 
 enum InstagramError: String, Error {
     case invalidClientCredentials
+    case invalidRequest
 }

@@ -30,7 +30,13 @@ class InstagramClient: APIClient {
         API = InstagramAPI()
     }
     
+    // MARK: - Fetch Media
+    func fetchMedia(withScopes: [InstagramScope], completion: @escaping (APIResult<[InstagramMedia]>) -> Void) throws {
+        guard let request = API.buildAuthorizationURLRequest(scopes: withScopes) else {
+            throw InstagramError.invalidRequest
+        }
     
+    }
   
     // MARK: - Keychain
     

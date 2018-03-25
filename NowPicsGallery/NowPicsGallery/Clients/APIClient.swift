@@ -14,16 +14,15 @@ public let UnexpectedResponseError: Int = 20
 public let UnhandledResponse = 30
 public let AbnormalError: Int = 40
 
-typealias json = [String : Any]
-typealias jsonTaskCompletion = (json?, HTTPURLResponse?, NSError?) -> Void
-typealias jsonTask = URLSessionDataTask
+typealias taskCompletion = (Data?, HTTPURLResponse?, NSError?) -> Void
+
 
 protocol APIClient {
     var session: URLSession { get }
 }
 
 extension APIClient {
-    private func jsonTaskWithRequest(_ request: URLRequest, completion: @escaping jsonTaskCompletion) -> jsonTask {
+    private func jsonTaskWithRequest(_ request: URLRequest, completion: @escaping taskCompletion) -> URLSessionTask {
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let HTTPURLResponse = response as? HTTPURLResponse else {
                 let userInfo = [NSLocalizedDescriptionKey: NSLocalizedString("MissingHTTPResponse", comment: "")]
@@ -35,12 +34,7 @@ extension APIClient {
             if let data = data {
                 switch HTTPURLResponse.statusCode {
                 case 200:
-                    do {
-                        let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                        completion(jsonObject, HTTPURLResponse, nil)
-                    } catch let error as NSError {
-                        completion(nil, HTTPURLResponse, error)
-                    }
+                    completion(data, HTTPURLResponse, nil)
                 default:
                     let userInfo = [NSLocalizedDescriptionKey: NSLocalizedString("Received HTTPURLREsponse: \(HTTPURLResponse.statusCode)", comment: "")]
                     let error = NSError(domain: JLNetworkingErrorDomain, code: UnhandledResponse, userInfo: userInfo)
@@ -56,10 +50,10 @@ extension APIClient {
         return task
     }
     
-    func fetch<T>(_ request: URLRequest, parse: @escaping (json) -> T?, completion: @escaping (APIResult<T>) -> Void) {
-        let task = jsonTaskWithRequest(request) { (json, _ , error) in
+    func fetch<T>(_ request: URLRequest, parse: @escaping (Data) -> T?, completion: @escaping (APIResult<T>) -> Void) {
+        let task = jsonTaskWithRequest(request) { (data, _ , error) in
             DispatchQueue.global(qos: .utility).async {
-                guard let json = json else {
+                guard let data = data else {
                     if let error = error {
                         DispatchQueue.main.async {
                             completion(.failure(error))
@@ -75,7 +69,7 @@ extension APIClient {
                     return
                 }
                 
-                if let value = parse(json) {
+                if let value = parse(data) {
                     DispatchQueue.main.async {
                         completion(.success(value))
                     }
