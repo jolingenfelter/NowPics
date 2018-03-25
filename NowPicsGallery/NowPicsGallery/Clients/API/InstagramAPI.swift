@@ -24,7 +24,7 @@ struct InstagramAPI {
     }
     
     // MARK: - Build URL's
-    func buildAuthorizationURL(scopes: [InstagramScope]) -> URL? {
+    func buildAuthorizationURLRequest(scopes: [InstagramScope]) -> URLRequest? {
         guard var components = URLComponents(string: APIBaseURL.unauthorized)  else { return nil}
         
         guard let clientInformation = clientInformation, let clientID = clientInformation.clientID, let redirectURI = clientInformation.clientRedirectURI else { return nil }
@@ -39,7 +39,7 @@ struct InstagramAPI {
         ]
         
         guard let url = components.url else { return nil }
-        return url
+        return URLRequest(url: url)
     }
     
     func buildRequest(endpoint: String, with accessToken: String?) -> URLRequest? {
