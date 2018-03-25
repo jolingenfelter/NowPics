@@ -42,9 +42,13 @@ struct InstagramAPI {
         return URLRequest(url: url)
     }
     
-    func buildRequest(endpoint: String, with accessToken: String?) -> URLRequest? {
-        guard let url = URL(string: APIBaseURL.authorized + endpoint)?.appendParameters(["access_token" : accessToken ?? ""])else {
+    func buildRequest(endpoint: String, with accessToken: String?, parameters: [String: Any]?) -> URLRequest? {
+        guard let url = URL(string: APIBaseURL.authorized + endpoint)?.appendParameters(["access_token" : accessToken ?? ""]) else {
             return nil
+        }
+        
+        if let withParameters = url.appendParameters(parameters) {
+            return URLRequest(url: withParameters)
         }
         
         return URLRequest(url: url)

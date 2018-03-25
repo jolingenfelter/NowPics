@@ -29,6 +29,8 @@ class InstagramClient {
         keychain = KeychainSwift(keyPrefix: "NowPics_")
         API = InstagramAPI()
     }
+    
+    
   
     // MARK: - Keychain
     
