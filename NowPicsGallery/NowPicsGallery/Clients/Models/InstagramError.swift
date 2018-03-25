@@ -15,4 +15,5 @@ enum InstagramError: Error {
     case dataParsingError(message: String)
     case failureToDownloadData(message: String)
     case unknownError(message: String)
+    case failedRequest
 }

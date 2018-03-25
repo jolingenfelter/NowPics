@@ -11,11 +11,17 @@ import WebKit
 
 class LoginViewController: UIViewController {
     
+    typealias SuccessHandler = (_ accesToken: String) -> Void
+    typealias FailureHandler = (_ error: InstagramError) -> Void
+    
     var instagramClient = InstagramClient.shared
     var progressView: UIProgressView!
     var webView: WKWebView!
     var webViewProgressObservation: NSKeyValueObservation!
-
+    
+    var success: SuccessHandler?
+    var failure: FailureHandler?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -33,6 +39,17 @@ class LoginViewController: UIViewController {
             presentAlert(withTitle: "Error", andMessage: message)
         } catch let error {
             presentAlert(withTitle: "Error", andMessage: error.localizedDescription)
+        }
+        
+        // Handlers
+        success = { accessToken in
+            self.instagramClient.storeAccessToken(accessToken)
+            let imageBrowserVC = ImageBrowsingViewController()
+            self.navigationController?.pushViewController(imageBrowserVC, animated: true)
+        }
+        
+        failure = { error in
+            self.presentAlert(withTitle: "Error", andMessage: error.localizedDescription)
         }
         
     }
@@ -91,21 +108,21 @@ extension LoginViewController: WKNavigationDelegate {
         
         decisionHandler(.cancel)
         let accessToken = String(urlString[range.upperBound...])
-        print(accessToken)
-        instagramClient.storeAccessToken(accessToken)
+        success?(accessToken)
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        guard let httpResponse = navigationResponse.response as? HTTPURLResponse else {
+            decisionHandler(.allow)
+            return
+        }
+        
+        switch httpResponse.statusCode {
+        case 400:
+            decisionHandler(.cancel)
+            self.failure?(InstagramError.failedRequest)
+        default:
+            decisionHandler(.allow)
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

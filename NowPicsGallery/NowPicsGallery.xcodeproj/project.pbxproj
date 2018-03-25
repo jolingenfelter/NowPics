@@ -12,6 +12,7 @@
 		6323EEF52068493A0000E334 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323EEF42068493A0000E334 /* APIClient.swift */; };
 		6323EEF820684A880000E334 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323EEF720684A880000E334 /* LoginView.swift */; };
 		6323EEFA206861CF0000E334 /* UIViewController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323EEF9206861CF0000E334 /* UIViewController Extension.swift */; };
+		6323EEFD20686A840000E334 /* ImageBrowsingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323EEFC20686A840000E334 /* ImageBrowsingViewController.swift */; };
 		63C1ACFC206707EC00E58521 /* URL Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1ACFB206707EC00E58521 /* URL Extension.swift */; };
 		63C1ACFE206707F500E58521 /* KeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1ACFD206707F500E58521 /* KeychainSwift.swift */; };
 		63E932212066BB290078CA68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E932202066BB290078CA68 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 		6323EEF42068493A0000E334 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = ../../../../Playgrounds/InstagramDataPractice.playground/Sources/APIClient.swift; sourceTree = "<group>"; };
 		6323EEF720684A880000E334 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6323EEF9206861CF0000E334 /* UIViewController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extension.swift"; sourceTree = "<group>"; };
+		6323EEFC20686A840000E334 /* ImageBrowsingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBrowsingViewController.swift; sourceTree = "<group>"; };
 		63C1ACFB206707EC00E58521 /* URL Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL Extension.swift"; sourceTree = "<group>"; };
 		63C1ACFD206707F500E58521 /* KeychainSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwift.swift; sourceTree = "<group>"; };
 		63E9321D2066BB290078CA68 /* NowPicsGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NowPicsGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +91,14 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		6323EEFB20686A580000E334 /* ImageBrowsingController */ = {
+			isa = PBXGroup;
+			children = (
+				6323EEFC20686A840000E334 /* ImageBrowsingViewController.swift */,
+			);
+			path = ImageBrowsingController;
+			sourceTree = "<group>";
+		};
 		63E932142066BB290078CA68 = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				63E932202066BB290078CA68 /* AppDelegate.swift */,
+				6323EEFB20686A580000E334 /* ImageBrowsingController */,
 				6323EEF620684A730000E334 /* Login */,
 				63E932272066BB290078CA68 /* Assets.xcassets */,
 				63E932292066BB290078CA68 /* LaunchScreen.storyboard */,
@@ -278,6 +289,7 @@
 				63C1ACFC206707EC00E58521 /* URL Extension.swift in Sources */,
 				63E932232066BB290078CA68 /* LoginViewController.swift in Sources */,
 				63E932212066BB290078CA68 /* AppDelegate.swift in Sources */,
+				6323EEFD20686A840000E334 /* ImageBrowsingViewController.swift in Sources */,
 				63E9324A2066C68F0078CA68 /* InstagramScope.swift in Sources */,
 				6323EEFA206861CF0000E334 /* UIViewController Extension.swift in Sources */,
 				63C1ACFE206707F500E58521 /* KeychainSwift.swift in Sources */,
