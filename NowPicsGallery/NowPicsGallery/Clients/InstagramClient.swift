@@ -16,26 +16,20 @@ class InstagramClient {
     }
     
     // MARK: - Properties
-    var configuration: URLSessionConfiguration
-    lazy var session: URLSession = {
-        return URLSession(configuration: self.configuration)
-    }()
     
-    private let keychain = KeychainSwift(keyPrefix: "NowPics_")
-    private let instagramAPI = InstagramAPI()
+    static let shared = InstagramClient()
     
-    // MARK: - Initializers
-    init(configuration: URLSessionConfiguration) {
-        self.configuration = configuration
+    private let session: URLSession
+    private let keychain: KeychainSwift
+    private let API: InstagramAPI
+    
+    // MARK: Initialization
+    private init() {
+        session = URLSession(configuration: .default)
+        keychain = KeychainSwift(keyPrefix: "NowPics_")
+        API = InstagramAPI()
     }
-    
-    convenience init() {
-        self.init(configuration: .default)
-    }
-    
-    // MARK: - Handle Authentification
-
-    
+  
     // MARK: - Keychain
     
     public var isAuthenticated: Bool {
@@ -55,11 +49,10 @@ class InstagramClient {
         deleteAccessToken()
     }
     
-    private func storeAccessToken(_ accessToken: String) {
+    public func storeAccessToken(_ accessToken: String) {
         keychain.set(accessToken, forKey: KeychainKeys.accessToken)
     }
 }
-
 
 
 
