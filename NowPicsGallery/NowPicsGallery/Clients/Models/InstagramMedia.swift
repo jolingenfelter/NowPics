@@ -8,7 +8,8 @@
 
 import Foundation
 
-public struct InstagramMedia {
+public struct InstagramMedia: Decodable {
     // MARK: - Properties
+    
     
 }

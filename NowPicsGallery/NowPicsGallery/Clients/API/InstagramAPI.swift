@@ -12,7 +12,7 @@ struct InstagramAPI {
     
     private struct APIBaseURL {
         static var unauthorized = "https://api.instagram.com/oauth/authorize"
-        static var authorized = "https://api.instagram.com/v1/media/image?"
+        static var authorized = "https://api.instagram.com/v1"
         
     }
     
@@ -42,7 +42,7 @@ struct InstagramAPI {
         return URLRequest(url: url)
     }
     
-    func buildRequest(endpoint: String, with accessToken: String?, parameters: [String: Any]?) -> URLRequest? {
+    func buildRequest(endpoint: String, withToken accessToken: String?, parameters: [String: Any]?) -> URLRequest? {
         guard let url = URL(string: APIBaseURL.authorized + endpoint)?.appendParameters(["access_token" : accessToken ?? ""]) else {
             return nil
         }

@@ -8,7 +8,11 @@
 
 import Foundation
 
-enum InstagramError: String, Error {
+enum InstagramError: Error {
     case invalidClientCredentials
-    case invalidRequest
+    case invalidRequest(message: String)
+    case missingAccessToken
+    case dataParsingError(message: String)
+    case failureToDownloadData(message: String)
+    case unknownError
 }

@@ -22,7 +22,7 @@ protocol APIClient {
 }
 
 extension APIClient {
-    private func jsonTaskWithRequest(_ request: URLRequest, completion: @escaping taskCompletion) -> URLSessionTask {
+func jsonTaskWithRequest(_ request: URLRequest, completion: @escaping taskCompletion) -> URLSessionTask {
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let HTTPURLResponse = response as? HTTPURLResponse else {
                 let userInfo = [NSLocalizedDescriptionKey: NSLocalizedString("MissingHTTPResponse", comment: "")]
@@ -50,7 +50,7 @@ extension APIClient {
         return task
     }
     
-    func fetch<T>(_ request: URLRequest, parse: @escaping (Data) -> T?, completion: @escaping (APIResult<T>) -> Void) {
+    func fetch(_ request: URLRequest, completion: @escaping (APIResult<Data>) -> Void) {
         let task = jsonTaskWithRequest(request) { (data, _ , error) in
             DispatchQueue.global(qos: .utility).async {
                 guard let data = data else {
@@ -59,7 +59,7 @@ extension APIClient {
                             completion(.failure(error))
                         }
                     } else {
-                        let userInfo = [NSLocalizedDescriptionKey: NSLocalizedString("Abnormal Error Handeling JSON", comment: "")]
+                        let userInfo = [NSLocalizedDescriptionKey: NSLocalizedString("Abnormal Error Downloading Data", comment: "")]
                         let error = NSError(domain: JLNetworkingErrorDomain, code: AbnormalError, userInfo: userInfo)
                         DispatchQueue.main.async {
                             completion(.failure(error))
@@ -69,10 +69,8 @@ extension APIClient {
                     return
                 }
                 
-                if let value = parse(data) {
-                    DispatchQueue.main.async {
-                        completion(.success(value))
-                    }
+                DispatchQueue.main.async {
+                    completion(.success(data))
                 }
             }
         }

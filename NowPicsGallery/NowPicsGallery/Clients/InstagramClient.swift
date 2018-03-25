@@ -31,12 +31,38 @@ class InstagramClient: APIClient {
     }
     
     // MARK: - Fetch Media
-    func fetchMedia(withScopes: [InstagramScope], completion: @escaping (APIResult<[InstagramMedia]>) -> Void) throws {
-        guard let request = API.buildAuthorizationURLRequest(scopes: withScopes) else {
-            throw InstagramError.invalidRequest
+    func fetchFromInstagram<T: Decodable>(withScopes: [InstagramScope], endpoint: String, parameters: [String: Any]?, success: ((_ data: T?) -> Void)?, failure: ((Error) -> Void)?) throws {
+        guard let accessToken = retrieveAccessToken() else {
+            throw InstagramError.missingAccessToken
+        }
+        
+        guard let request = API.buildRequest(endpoint: endpoint, withToken: accessToken, parameters: parameters) else {
+            throw InstagramError.invalidRequest(message: "Invalid request")
+        }
+        
+        fetch(request) { (result) in
+            switch result {
+            case .success(let data):
+                do {
+                    let json = try JSONDecoder().decode(InstagramResponse<T>.self, from: data)
+                    if let data = json.data {
+                        success?(data)
+                    } else if let message = json.meta.errorMessage {
+                        failure?(InstagramError.invalidRequest(message: message))
+                    } else {
+                        failure?(InstagramError.unknownError)
+                    }
+                } catch let error {
+                    failure?(InstagramError.dataParsingError(message: error.localizedDescription))
+                }
+            case .failure(let error):
+                failure?(InstagramError.failureToDownloadData(message: error.localizedDescription))
+            }
         }
     
     }
+    
+    //private func parseOutMedia
   
     // MARK: - Keychain
     
