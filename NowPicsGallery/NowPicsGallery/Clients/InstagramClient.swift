@@ -19,16 +19,10 @@ class InstagramClient: APIClient {
     
     static let shared = InstagramClient()
     
-    internal let session: URLSession
-    private let keychain: KeychainSwift
-    private let API: InstagramAPI
-    
-    // MARK: Initialization
-    private init() {
-        session = URLSession(configuration: .default)
-        keychain = KeychainSwift(keyPrefix: "NowPics_")
-        API = InstagramAPI()
-    }
+    internal let session = URLSession(configuration: .default)
+    private let keychain = KeychainSwift(keyPrefix: "NowPics_")
+    private let API = InstagramAPI()
+   
     
     // MARK: - Authorization
     public func authorizationRequest(scopes: [InstagramScope]) throws -> URLRequest {

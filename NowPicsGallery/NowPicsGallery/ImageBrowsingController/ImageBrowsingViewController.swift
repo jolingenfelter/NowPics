@@ -11,6 +11,17 @@ import UIKit
 class ImageBrowsingViewController: UIViewController {
     
     var collectionView: UICollectionView!
+    let instagramClient: InstagramClient
+    
+    // MARK: - Initializers
+    required init?(coder aDecoder: NSCoder) {
+        fatalError()
+    }
+    
+    init(instagramClient: InstagramClient) {
+        self.instagramClient = instagramClient
+        super.init(nibName: nil, bundle: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +30,14 @@ class ImageBrowsingViewController: UIViewController {
         edgesForExtendedLayout = []
         let flowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if !instagramClient.isAuthenticated {
+            let loginController = LoginViewController(instagramClient: instagramClient)
+            let navigationController = UINavigationController(rootViewController: loginController)
+            present(navigationController, animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {

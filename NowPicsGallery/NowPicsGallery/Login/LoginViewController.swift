@@ -14,13 +14,24 @@ class LoginViewController: UIViewController {
     typealias SuccessHandler = (_ accesToken: String) -> Void
     typealias FailureHandler = (_ error: InstagramError) -> Void
     
-    var instagramClient = InstagramClient.shared
     var progressView: UIProgressView!
     var webView: WKWebView!
     var webViewProgressObservation: NSKeyValueObservation!
     
     var success: SuccessHandler?
     var failure: FailureHandler?
+    
+    let instagramClient: InstagramClient
+    
+    // MARK: - Initializers
+    init(instagramClient: InstagramClient) {
+        self.instagramClient = instagramClient
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +55,7 @@ class LoginViewController: UIViewController {
         // Handlers
         success = { accessToken in
             self.instagramClient.storeAccessToken(accessToken)
-            let imageBrowserVC = ImageBrowsingViewController()
-            self.navigationController?.pushViewController(imageBrowserVC, animated: true)
+            self.dismiss(animated: true, completion: nil)
         }
         
         failure = { error in

@@ -21,15 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window.backgroundColor = .white
         window.makeKeyAndVisible()
-        InstagramClient.shared.logOut()
         
-        if !InstagramClient.shared.isAuthenticated {
-            let loginController = LoginViewController()
-            let navigationController = UINavigationController(rootViewController: loginController)
-            window.rootViewController = navigationController
-        } else {
-            
-        }
+        let instagramClient = InstagramClient()
+        instagramClient.logOut()
+        let browserViewController = ImageBrowsingViewController(instagramClient: instagramClient)
+        let navigationController = UINavigationController(rootViewController: browserViewController)
+        window.rootViewController = navigationController
         
         return true
     }
