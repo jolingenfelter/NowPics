@@ -13,9 +13,9 @@ enum InstagramError: Error {
     case invalidRequest
     case missingAccessToken
     case dataParsingError
-    case failureToDownloadData(message: String)
+    case failureToDownloadData
     case unknownError
-    case badRequest(message: String)
+    case badRequest
 
 }
 
@@ -30,12 +30,12 @@ extension InstagramError {
             return NSLocalizedString("Missing access token", comment: "")
         case .dataParsingError:
             return NSLocalizedString("Error parsing Instagram data", comment: "")
-        case .failureToDownloadData(let message):
-            return NSLocalizedString("Failure to download Instagram data: \(message)", comment: "")
+        case .failureToDownloadData:
+            return NSLocalizedString("Failure to download Instagram data", comment: "")
         case .unknownError:
             return NSLocalizedString("An unknown error occured", comment: "")
-        case .badRequest(let message):
-            return NSLocalizedString("Failed web request with error description: \(message)", comment: "")
+        case .badRequest:
+            return NSLocalizedString("Failed web request with error description", comment: "")
         }
     }
 }

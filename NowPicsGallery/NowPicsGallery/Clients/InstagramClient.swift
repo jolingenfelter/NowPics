@@ -55,16 +55,16 @@ class InstagramClient: APIClient {
                 let json = try JSONDecoder().decode(InstagramResponse<T>.self, from: data)
                 if let jsonData = json.data {
                     completion(.success(jsonData))
-                } else if let message = json.meta.errorMessage{
-                    completion(.failure(InstagramError.badRequest(message: message)))
+                } else if let _ = json.meta.errorMessage{
+                    completion(.failure(InstagramError.badRequest))
                 } else {
                     completion(.failure(InstagramError.unknownError))
                 }
             } catch {
                 completion(.failure(InstagramError.dataParsingError))
             }
-        }) { (error) in
-            completion(.failure(InstagramError.failureToDownloadData(message: error.localizedDescription)))
+        }) { _ in
+            completion(.failure(InstagramError.failureToDownloadData))
         }
     
     }
