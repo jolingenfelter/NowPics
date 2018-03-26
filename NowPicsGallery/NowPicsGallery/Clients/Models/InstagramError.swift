@@ -10,10 +10,32 @@ import UIKit
 
 enum InstagramError: Error {
     case invalidClientCredentials
-    case invalidRequest(message: String)
+    case invalidRequest
     case missingAccessToken
-    case dataParsingError(message: String)
+    case dataParsingError
     case failureToDownloadData(message: String)
-    case unknownError(message: String)
-    case failedRequest
+    case unknownError
+    case badRequest(message: String)
+
+}
+
+extension InstagramError {
+    public var errorDescription: String {
+        switch self {
+        case .invalidClientCredentials:
+            return NSLocalizedString("Invalid client credentials", comment: "")
+        case .invalidRequest:
+            return NSLocalizedString("Invalid web request", comment: "")
+        case .missingAccessToken:
+            return NSLocalizedString("Missing access token", comment: "")
+        case .dataParsingError:
+            return NSLocalizedString("Error parsing Instagram data", comment: "")
+        case .failureToDownloadData(let message):
+            return NSLocalizedString("Failure to download Instagram data: \(message)", comment: "")
+        case .unknownError:
+            return NSLocalizedString("An unknown error occured", comment: "")
+        case .badRequest(let message):
+            return NSLocalizedString("Failed web request with error description: \(message)", comment: "")
+        }
+    }
 }

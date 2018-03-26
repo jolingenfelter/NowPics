@@ -33,7 +33,7 @@ class InstagramClient: APIClient {
     // MARK: - Authorization
     public func authorizationRequest(scopes: [InstagramScope]) throws -> URLRequest {
         guard let request = API.buildAuthorizationURLRequest(scopes: scopes) else {
-            throw InstagramError.invalidRequest(message: "Error building web request")
+            throw InstagramError.invalidRequest
         }
         return request
     }
@@ -46,7 +46,7 @@ class InstagramClient: APIClient {
         }
         
         guard let request = API.buildRequest(endpoint: endpoint, withToken: accessToken, parameters: parameters) else {
-            completion(.failure(InstagramError.invalidRequest(message: "Invalid request")))
+            completion(.failure(InstagramError.invalidRequest))
             return
         }
         
@@ -56,12 +56,12 @@ class InstagramClient: APIClient {
                 if let jsonData = json.data {
                     completion(.success(jsonData))
                 } else if let message = json.meta.errorMessage{
-                    completion(.failure(InstagramError.invalidRequest(message: message)))
+                    completion(.failure(InstagramError.badRequest(message: message)))
                 } else {
-                    completion(.failure(InstagramError.unknownError(message: "An unknown error occured")))
+                    completion(.failure(InstagramError.unknownError))
                 }
-            } catch let error {
-                completion(.failure(InstagramError.dataParsingError(message: error.localizedDescription)))
+            } catch {
+                completion(.failure(InstagramError.dataParsingError))
             }
         }) { (error) in
             completion(.failure(InstagramError.failureToDownloadData(message: error.localizedDescription)))

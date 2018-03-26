@@ -35,8 +35,8 @@ class LoginViewController: UIViewController {
         do {
             let request = try instagramClient.authorizationRequest(scopes: [.all])
             webView.load(request)
-        } catch InstagramError.invalidRequest(let message){
-            presentAlert(withTitle: "Error", andMessage: message)
+        } catch InstagramError.invalidRequest{
+            presentAlert(withTitle: "Error", andMessage: InstagramError.invalidRequest.errorDescription)
         } catch let error {
             presentAlert(withTitle: "Error", andMessage: error.localizedDescription)
         }
@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
         }
         
         failure = { error in
-            self.presentAlert(withTitle: "Error", andMessage: error.localizedDescription)
+            self.presentAlert(withTitle: "Error", andMessage: error.errorDescription)
         }
         
     }
@@ -120,7 +120,7 @@ extension LoginViewController: WKNavigationDelegate {
         switch httpResponse.statusCode {
         case 400:
             decisionHandler(.cancel)
-            self.failure?(InstagramError.failedRequest)
+            self.failure?(InstagramError.invalidRequest)
         default:
             decisionHandler(.allow)
         }
