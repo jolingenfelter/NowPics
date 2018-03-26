@@ -39,35 +39,32 @@ class InstagramClient: APIClient {
     }
     
     // MARK: - Fetch Media
-    func fetchFromInstagram<T: Decodable>(withScopes: [InstagramScope], endpoint: String, parameters: [String: Any]?, success: ((_ data: T?) -> Void)?, failure: ((Error) -> Void)?) {
+    func fetchFromInstagram<T: Decodable>(withScopes: [InstagramScope], endpoint: String, parameters: [String: Any]?, completion: @escaping (APIResult<T>) -> Void) {
         guard let accessToken = retrieveAccessToken() else {
-            failure?(InstagramError.missingAccessToken)
+            completion(.failure(InstagramError.missingAccessToken))
             return
         }
         
         guard let request = API.buildRequest(endpoint: endpoint, withToken: accessToken, parameters: parameters) else {
-            failure?(InstagramError.invalidRequest(message: "Error building web request"))
+            completion(.failure(InstagramError.invalidRequest(message: "Invalid request")))
             return
         }
         
-        fetch(request) { (result) in
-            switch result {
-            case .success(let data):
-                do {
-                    let json = try JSONDecoder().decode(InstagramResponse<T>.self, from: data)
-                    if let data = json.data {
-                        success?(data)
-                    } else if let message = json.meta.errorMessage {
-                        failure?(InstagramError.invalidRequest(message: message))
-                    } else {
-                        failure?(InstagramError.unknownError(message: "Unknown error occored"))
-                    }
-                } catch let error {
-                    failure?(InstagramError.dataParsingError(message: error.localizedDescription))
+        fetchAPIData(withRequest: request, success: { (data) in
+            do {
+                let json = try JSONDecoder().decode(InstagramResponse<T>.self, from: data)
+                if let jsonData = json.data {
+                    completion(.success(jsonData))
+                } else if let message = json.meta.errorMessage{
+                    completion(.failure(InstagramError.invalidRequest(message: message)))
+                } else {
+                    completion(.failure(InstagramError.unknownError(message: "An unknown error occured")))
                 }
-            case .failure(let error):
-                failure?(InstagramError.failureToDownloadData(message: error.localizedDescription))
+            } catch let error {
+                completion(.failure(InstagramError.dataParsingError(message: error.localizedDescription)))
             }
+        }) { (error) in
+            completion(.failure(InstagramError.failureToDownloadData(message: error.localizedDescription)))
         }
     
     }

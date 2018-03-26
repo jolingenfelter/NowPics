@@ -9,11 +9,16 @@
 import UIKit
 
 class ImageBrowsingViewController: UIViewController {
+    
+    var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        
+        edgesForExtendedLayout = []
+        let flowLayout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
     }
 
     override func didReceiveMemoryWarning() {
