@@ -104,6 +104,10 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController: WKNavigationDelegate {
     
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        // TODO: - Check for network connection here
+    }
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         navigationItem.title = webView.title
     }

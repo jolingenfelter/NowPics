@@ -15,6 +15,7 @@ class ImageBrowsingViewController: UIViewController {
     let instagramClient: InstagramClient
     
     fileprivate let itemsPerRow: CGFloat = 3
+    fileprivate let edgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
     
     lazy var dataSource: ImageBrowsingDataSource = {
         return ImageBrowsingDataSource(collectionView: self.collectionView, instagramMedia: self.instagramMedia)
@@ -86,12 +87,19 @@ extension ImageBrowsingViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let paddingSpace = itemsPerRow * 2
+        let paddingSpace = edgeInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
         
         return CGSize(width: widthPerItem, height: widthPerItem)
-        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return edgeInsets.bottom
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return edgeInsets.left
     }
     
 }
