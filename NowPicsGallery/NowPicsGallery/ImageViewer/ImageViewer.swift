@@ -15,6 +15,7 @@ class ImageViewer: UIViewController {
     fileprivate let imageURL: URL
     fileprivate let imageGetter: ImageGetter
     fileprivate var downloadedImage: UIImage?
+    fileprivate var saveOrShareButton: UIBarButtonItem?
     
     init(imageGetter: ImageGetter, imageURL: URL) {
         self.imageURL = imageURL
@@ -31,6 +32,7 @@ class ImageViewer: UIViewController {
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
         
+        navBarSetup()
         imageScrollViewSetup()
         activityIndicatorSetup()
         prepareImage()
@@ -60,7 +62,7 @@ class ImageViewer: UIViewController {
         
         activityIndicator.isHidden = true
     }
-    
+
     func prepareImage() {
         
         activityIndicator.isHidden = false
@@ -89,6 +91,33 @@ class ImageViewer: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+}
+
+// MARK: - Navigation
+
+extension ImageViewer {
+    
+    func navBarSetup() {
+        saveOrShareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(sharePressed))
+        let localizedClose = NSLocalizedString("Close", comment: "")
+        let closeButton = UIBarButtonItem(title: localizedClose, style: .done, target: self, action: #selector(closePressed))
+        
+        navigationItem.rightBarButtonItem = closeButton
+        navigationItem.leftBarButtonItem = saveOrShareButton!
+    }
+    
+    @objc func closePressed() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func sharePressed() {
+        guard let image = downloadedImage else { return }
+        let activityController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        activityController.popoverPresentationController?.barButtonItem = saveOrShareButton!
+        
+        self.present(activityController, animated: true, completion: nil)
     }
     
 }

@@ -31,7 +31,7 @@ extension InstagramError {
         case .dataParsingError:
             return NSLocalizedString("Error parsing Instagram data", comment: "")
         case .failureToDownloadData:
-            return NSLocalizedString("Failure to download Instagram data", comment: "")
+            return NSLocalizedString("Failure to download Instagram data.  Check your network connection and then try closing and relaunching the app.", comment: "")
         case .unknownError:
             return NSLocalizedString("An unknown error occured", comment: "")
         case .badRequest:

@@ -81,6 +81,8 @@ class ImageBrowsingViewController: UIViewController {
                     strongSelf.present(navigationController, animated: true, completion: nil)
                     
                 } else {
+                    
+                    strongSelf.instagramClient.logOut()
                     let localizedError = NSLocalizedString("Error", comment: "")
                     
                     guard let instagramError = error as? InstagramError else {
