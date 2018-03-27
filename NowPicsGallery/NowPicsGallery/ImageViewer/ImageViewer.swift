@@ -52,6 +52,7 @@ class ImageViewer: UIViewController {
     }
     
     func activityIndicatorSetup() {
+        activityIndicator.color = .lightGray
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         imageScrollView.addSubview(activityIndicator)
         

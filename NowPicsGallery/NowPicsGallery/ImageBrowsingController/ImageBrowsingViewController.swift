@@ -100,6 +100,7 @@ class ImageBrowsingViewController: UIViewController {
     }
     
     func activityIndicatorSetup() {
+        activityIndicator.color = .lightGray
         view.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
