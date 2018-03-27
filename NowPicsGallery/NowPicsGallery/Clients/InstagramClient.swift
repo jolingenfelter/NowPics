@@ -36,7 +36,7 @@ final class InstagramClient: APIClient {
     }
     
     // MARK: - Fetch Media
-    func fetchFromInstagram<T: Decodable>(endpoint: String, parameters: [String: Any]?, success: ((_ data: T?) -> Void)?, failure: ((Error) -> Void)?) {
+    private func fetchFromInstagram<T: Decodable>(endpoint: String, parameters: [String: Any]?, success: ((_ data: T) -> Void)?, failure: ((Error) -> Void)?) {
         guard let accessToken = retrieveAccessToken() else {
             failure?(InstagramError.missingAccessToken)
             return
@@ -61,11 +61,18 @@ final class InstagramClient: APIClient {
                 print(error)
                 failure?(InstagramError.dataParsingError)
             }
-        }) { error in
-            print(error)
+        }) { _ in
             failure?(InstagramError.failureToDownloadData)
         }
     
+    }
+    
+    func fetchUserImages(completion: @escaping (APIResult<[InstagramMedia]>) -> Void) {
+        fetchFromInstagram(endpoint: "users/self/media/recent/?", parameters: nil, success: { (media: [InstagramMedia]) in
+            completion(.success(media))
+        }) { error in
+            completion(.failure(error))
+        }
     }
   
     // MARK: - Keychain

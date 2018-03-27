@@ -40,21 +40,23 @@ class ImageBrowsingViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        fetchImages()
+        super.viewDidAppear(animated)
+        fetchMedia()
     }
     
-    func fetchImages() {
-        instagramClient.fetchFromInstagram(endpoint: "users/self/media/recent/?", parameters: nil, success: { (media: [InstagramMedia]?) in
-            print(media)
-        }) { (error) in
-            if !self.instagramClient.isAuthenticated {
-                let loginController = LoginViewController(instagramClient: self.instagramClient)
-                let navigationController = UINavigationController(rootViewController: loginController)
-                self.present(navigationController, animated: true, completion: nil)
+    func fetchMedia() {
+        instagramClient.fetchUserImages { (result) in
+            switch result {
+            case .success(let media): print(media)
+            case .failure(let error):
+                if !self.instagramClient.isAuthenticated {
+                    let loginController = LoginViewController(instagramClient: self.instagramClient)
+                    let navigationController = UINavigationController(rootViewController: loginController)
+                    self.present(navigationController, animated: true, completion: nil)
+                } else {
+                    print(error)
+                }
             }
-            
-            print(error)
         }
     }
 
