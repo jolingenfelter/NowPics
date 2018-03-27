@@ -118,18 +118,9 @@ extension ImageBrowsingViewController: UICollectionViewDelegate {
         if let instagramMedia = instagramMedia {
             let mediaItem = instagramMedia[indexPath.row]
             let imageURL = mediaItem.images.standardResolution.url
-            
-            imageGetter.getImage(from: imageURL, completion: { [weak self] (result) in
-                switch result {
-                case .ok(let image):
-                    let imageViewer = ImageViewer(image: image)
-                    let navigationController = UINavigationController(rootViewController: imageViewer)
-                    self?.present(navigationController, animated: true, completion: nil)
-                case .error(let error):
-                    let localizedError = NSLocalizedString("Error", comment: "")
-                    self?.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
-                }
-            })
+            let imageViewer = ImageViewer(imageGetter: imageGetter, imageURL: imageURL)
+            let navigationController = UINavigationController(rootViewController: imageViewer)
+            self.navigationController?.present(navigationController, animated: true, completion: nil)
         }
     }
 }
@@ -155,11 +146,3 @@ extension ImageBrowsingViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
-
-
-
-
-
-
-
-

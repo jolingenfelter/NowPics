@@ -11,10 +11,12 @@ import UIKit
 class ImageViewer: UIViewController {
     
     fileprivate let imageScrollView = ImageScrollView()
-    fileprivate let image: UIImage
+    fileprivate let imageURL: URL
+    fileprivate let imageGetter: ImageGetter
     
-    init(image: UIImage) {
-        self.image = image
+    init(imageGetter: ImageGetter, imageURL: URL) {
+        self.imageURL = imageURL
+        self.imageGetter = imageGetter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,9 +31,9 @@ class ImageViewer: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white
         // Do any additional setup after loading the view.
-        imageScrollView.displayImage(image)
+
     }
     
     func imageScrollViewSetup() {
