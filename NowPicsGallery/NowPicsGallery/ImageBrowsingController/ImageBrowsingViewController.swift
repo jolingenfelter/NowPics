@@ -10,10 +10,12 @@ import UIKit
 
 class ImageBrowsingViewController: UIViewController {
     
-    var collectionView: UICollectionView!
-    var instagramMedia: [InstagramMedia]?
-    let instagramClient: InstagramClient
+    fileprivate var collectionView: UICollectionView!
+    fileprivate let activityIndicator = UIActivityIndicatorView()
     
+    fileprivate var instagramMedia: [InstagramMedia]?
+    fileprivate let instagramClient: InstagramClient
+
     fileprivate let itemsPerRow: CGFloat = 3
     fileprivate let edgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
     
@@ -34,6 +36,7 @@ class ImageBrowsingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.title = "NowPics Gallery"
         
         edgesForExtendedLayout = []
         let flowLayout = UICollectionViewFlowLayout()
@@ -51,17 +54,26 @@ class ImageBrowsingViewController: UIViewController {
     }
     
     func fetchMedia() {
+        
+        view.addSubview(activityIndicator)
+        activityIndicatorSetup()
+        activityIndicator.startAnimating()
+        
         instagramClient.fetchUserImages { (result) in
             switch result {
             case .success(let media):
                 self.instagramMedia = media
                 self.collectionView.dataSource = self.dataSource
-
+                
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.removeFromSuperview()
+                
             case .failure(let error):
                 if !self.instagramClient.isAuthenticated {
                     let loginController = LoginViewController(instagramClient: self.instagramClient)
                     let navigationController = UINavigationController(rootViewController: loginController)
                     self.present(navigationController, animated: true, completion: nil)
+                    
                 } else {
                     let localizedError = NSLocalizedString("Error", comment: "")
                     
@@ -69,10 +81,22 @@ class ImageBrowsingViewController: UIViewController {
                         self.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
                         return
                     }
+                    
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.removeFromSuperview()
+                    
                     self.presentAlert(withTitle: localizedError, andMessage: instagramError.errorDescription)
                 }
             }
         }
+    }
+    
+    func activityIndicatorSetup() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
     }
 
     override func didReceiveMemoryWarning() {
