@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -41,11 +41,11 @@
 
 /* Begin PBXFileReference section */
 		01485A6F1CE0232B707202000BA90871 /* Pods-NowPicsGalleryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NowPicsGalleryTests.debug.xcconfig"; sourceTree = "<group>"; };
-		0251397FDC57624293528155C84C11AD /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Nuke.framework; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0251397FDC57624293528155C84C11AD /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		064F15DA67BB07D0B75076C829088304 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11F791615A8639559364F937B65DE684 /* Pods-NowPicsGalleryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NowPicsGalleryTests.release.xcconfig"; sourceTree = "<group>"; };
 		17C39634DB5E046C1F697F6D3673AE12 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1CB0C39B71A6DAF9BC2FD596DAE039A5 /* Pods_NowPicsGallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_NowPicsGallery.framework; path = "Pods-NowPicsGallery.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CB0C39B71A6DAF9BC2FD596DAE039A5 /* Pods_NowPicsGallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NowPicsGallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DC6EF3043038640F799595B92A617CD /* Pods-NowPicsGalleryTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NowPicsGalleryTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		25CF175A504944CC70400737E3296D24 /* DataDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataDecoder.swift; path = Sources/DataDecoder.swift; sourceTree = "<group>"; };
 		2B4B7E053C9000DF757C10D84611922C /* Cache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cache.swift; path = Sources/Cache.swift; sourceTree = "<group>"; };
@@ -60,13 +60,13 @@
 		6DA24BDF5D6DEACB1AAA58C6935DAF4D /* Manager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = Sources/Manager.swift; sourceTree = "<group>"; };
 		7361CC47A13BC1C9FA76EF9C6D7BD847 /* Internal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Internal.swift; path = Sources/Internal.swift; sourceTree = "<group>"; };
 		7A563E774F82D8E74A2430CE196472E1 /* Pods-NowPicsGalleryTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NowPicsGalleryTests-dummy.m"; sourceTree = "<group>"; };
-		7B32411363A0FC8835F3EEEC46D7B6E5 /* Nuke.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Nuke.modulemap; sourceTree = "<group>"; };
+		7B32411363A0FC8835F3EEEC46D7B6E5 /* Nuke.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Nuke.modulemap; sourceTree = "<group>"; };
 		7B5F8A7AC2F39B94C58AAFCC3F91433D /* Pods-NowPicsGallery-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NowPicsGallery-acknowledgements.plist"; sourceTree = "<group>"; };
 		7FFEB0E8EA96ED156B2F2146BA334AF8 /* Pods-NowPicsGallery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NowPicsGallery.release.xcconfig"; sourceTree = "<group>"; };
-		8124D40C24D43D50861584869218E114 /* Pods-NowPicsGalleryTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-NowPicsGalleryTests.modulemap"; sourceTree = "<group>"; };
-		868722740813E81541B5B21E7972EF7B /* Pods-NowPicsGallery.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-NowPicsGallery.modulemap"; sourceTree = "<group>"; };
+		8124D40C24D43D50861584869218E114 /* Pods-NowPicsGalleryTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-NowPicsGalleryTests.modulemap"; sourceTree = "<group>"; };
+		868722740813E81541B5B21E7972EF7B /* Pods-NowPicsGallery.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-NowPicsGallery.modulemap"; sourceTree = "<group>"; };
 		8BE490AFC5D26AF8B71F7E2DD365DD93 /* Pods-NowPicsGallery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NowPicsGallery.debug.xcconfig"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		97D3ADC100B00548BC86B29BB735591C /* Pods-NowPicsGalleryTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NowPicsGalleryTests-resources.sh"; sourceTree = "<group>"; };
 		9FA523D8BFD52CF816E4AD6D22AA8D16 /* Nuke.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nuke.xcconfig; sourceTree = "<group>"; };
 		A48D018764CB184D633727BD2FBB3AF3 /* DataLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataLoader.swift; path = Sources/DataLoader.swift; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		DFFCF2E0370D7DD781C884510D62BE8E /* Pods-NowPicsGalleryTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NowPicsGalleryTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E62E1B3D8E264181B45FB9334F05BF3B /* Nuke.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Nuke.swift; path = Sources/Nuke.swift; sourceTree = "<group>"; };
 		EBBD60298904112F2E3309F669EB43AD /* Pods-NowPicsGallery-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NowPicsGallery-dummy.m"; sourceTree = "<group>"; };
-		ED81B0DD48844538E32FAB983B900F19 /* Pods_NowPicsGalleryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_NowPicsGalleryTests.framework; path = "Pods-NowPicsGalleryTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED81B0DD48844538E32FAB983B900F19 /* Pods_NowPicsGalleryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NowPicsGalleryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F74F1F4113E7A483D9BC100A45D4E8 /* Pods-NowPicsGalleryTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NowPicsGalleryTests-umbrella.h"; sourceTree = "<group>"; };
 		F98EB16BED5C0BF777178BE78662D44E /* Pods-NowPicsGallery-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NowPicsGallery-frameworks.sh"; sourceTree = "<group>"; };
 		FAFEB51BB69340F37A442E9075ECB975 /* Pods-NowPicsGalleryTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NowPicsGalleryTests-frameworks.sh"; sourceTree = "<group>"; };
@@ -190,7 +190,6 @@
 				6D553303C19E285B0E94412362195646 /* Request.swift */,
 				790D968A3C816F68FC88343A765467FC /* Support Files */,
 			);
-			name = Nuke;
 			path = Nuke;
 			sourceTree = "<group>";
 		};
@@ -325,7 +324,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0920;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -638,6 +637,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
