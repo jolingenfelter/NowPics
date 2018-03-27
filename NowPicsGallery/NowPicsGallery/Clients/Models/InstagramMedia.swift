@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct InstagramMediaMe: Decodable {
+public struct InstagramMedia: Decodable {
     
     // MARK: - Properties
     public let images: Images

@@ -130,7 +130,7 @@ extension LoginViewController: WKNavigationDelegate {
         switch httpResponse.statusCode {
         case 400:
             decisionHandler(.cancel)
-            self.failure?(InstagramError.invalidRequest)
+            self.failure?(InstagramError.badRequest)
         default:
             decisionHandler(.allow)
         }

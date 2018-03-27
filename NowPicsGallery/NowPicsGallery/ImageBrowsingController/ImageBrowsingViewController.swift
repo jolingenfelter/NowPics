@@ -13,6 +13,8 @@ class ImageBrowsingViewController: UIViewController {
     var collectionView: UICollectionView!
     let instagramClient: InstagramClient
     
+    fileprivate let itemsPerRow: CGFloat = 3
+    
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
         fatalError()
@@ -30,6 +32,10 @@ class ImageBrowsingViewController: UIViewController {
         edgesForExtendedLayout = []
         let flowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
+        collectionView.delegate = self
+        collectionView.register(MediaViewCell.self, forCellWithReuseIdentifier: MediaViewCell.reuseIdentifier)
+
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,6 +43,16 @@ class ImageBrowsingViewController: UIViewController {
             let loginController = LoginViewController(instagramClient: instagramClient)
             let navigationController = UINavigationController(rootViewController: loginController)
             present(navigationController, animated: true, completion: nil)
+        }
+        
+        fetchImages()
+    }
+    
+    func fetchImages() {
+        instagramClient.fetchFromInstagram(endpoint: "/media/shortcode/D?", parameters: nil, success: { (media: InstagramMedia?) in
+            print(media)
+        }) { (error) in
+            print(error)
         }
     }
 
@@ -46,3 +62,26 @@ class ImageBrowsingViewController: UIViewController {
     }
 
 }
+
+// MARK: - CollectionViewDelegateFlowLayout
+extension ImageBrowsingViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let paddingSpace = itemsPerRow * 2
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem)
+        
+    }
+    
+}
+
+
+
+
+
+
+
+

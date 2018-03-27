@@ -10,4 +10,27 @@ import UIKit
 
 class MediaViewCell: UICollectionViewCell {
     
+    static let reuseIdentifier = "\(MediaViewCell.self)"
+    let imageView = UIImageView()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageViewSetup()
+    }
+    
+    func imageViewSetup() {
+        contentView.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            ])
+    }
+    
+    func configureCellwithImage(atURL: URL) {
+        self.clipsToBounds = true
+    }
 }

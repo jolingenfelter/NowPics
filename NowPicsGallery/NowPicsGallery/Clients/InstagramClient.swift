@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InstagramClient: APIClient {
+final class InstagramClient: APIClient {
     
     // MARK: - Types
     private struct KeychainKeys {
@@ -17,12 +17,15 @@ class InstagramClient: APIClient {
     
     // MARK: - Properties
     
-    static let shared = InstagramClient()
-    
-    internal let session = URLSession(configuration: .default)
-    private let keychain = KeychainSwift(keyPrefix: "NowPics_")
-    private let API = InstagramAPI()
+    internal let session: URLSession
+    private let keychain: KeychainSwift
+    private let API: InstagramAPI
    
+    init() {
+        session = URLSession(configuration: .default)
+        keychain = KeychainSwift(keyPrefix: "NowPics_")
+        API = InstagramAPI()
+    }
     
     // MARK: - Authorization
     public func authorizationRequest(scopes: [InstagramScope]) throws -> URLRequest {
@@ -33,14 +36,14 @@ class InstagramClient: APIClient {
     }
     
     // MARK: - Fetch Media
-    func fetchFromInstagram<T: Decodable>(withScopes: [InstagramScope], endpoint: String, parameters: [String: Any]?, completion: @escaping (APIResult<T>) -> Void) {
+    func fetchFromInstagram<T: Decodable>(endpoint: String, parameters: [String: Any]?, success: ((_ data: T?) -> Void)?, failure: ((Error) -> Void)?) {
         guard let accessToken = retrieveAccessToken() else {
-            completion(.failure(InstagramError.missingAccessToken))
+            failure?(InstagramError.missingAccessToken)
             return
         }
         
         guard let request = API.buildRequest(endpoint: endpoint, withToken: accessToken, parameters: parameters) else {
-            completion(.failure(InstagramError.invalidRequest))
+            failure?(InstagramError.invalidRequest)
             return
         }
         
@@ -48,17 +51,18 @@ class InstagramClient: APIClient {
             do {
                 let json = try JSONDecoder().decode(InstagramResponse<T>.self, from: data)
                 if let jsonData = json.data {
-                    completion(.success(jsonData))
+                    success?(jsonData)
                 } else if let _ = json.meta.errorMessage{
-                    completion(.failure(InstagramError.badRequest))
+                    failure?(InstagramError.badRequest)
                 } else {
-                    completion(.failure(InstagramError.unknownError))
+                    failure?(InstagramError.unknownError)
                 }
             } catch {
-                completion(.failure(InstagramError.dataParsingError))
+                failure?(InstagramError.dataParsingError)
             }
-        }) { _ in
-            completion(.failure(InstagramError.failureToDownloadData))
+        }) { error in
+            print(error)
+            failure?(InstagramError.failureToDownloadData)
         }
     
     }
