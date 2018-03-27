@@ -14,6 +14,7 @@ class MediaViewCell: UICollectionViewCell {
     static let reuseIdentifier = "\(MediaViewCell.self)"
     let imageView = UIImageView()
     
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         imageViewSetup()
@@ -29,14 +30,7 @@ class MediaViewCell: UICollectionViewCell {
             imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
             ])
-        
-        imageView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:)))
-        imageView.addGestureRecognizer(tap)
-    }
     
-    @objc func handleTap(recognizer: UITapGestureRecognizer) {
-        print("Tap!")
     }
     
     func configureCellwithImage(atURL: URL) {

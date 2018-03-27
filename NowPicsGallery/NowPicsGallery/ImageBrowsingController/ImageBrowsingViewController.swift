@@ -59,33 +59,37 @@ class ImageBrowsingViewController: UIViewController {
         activityIndicatorSetup()
         activityIndicator.startAnimating()
         
-        instagramClient.fetchUserImages { (result) in
+        instagramClient.fetchUserImages { [weak self] (result) in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
             switch result {
             case .success(let media):
-                self.instagramMedia = media
-                self.collectionView.dataSource = self.dataSource
-                
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.removeFromSuperview()
+                strongSelf.instagramMedia = media
+                strongSelf.collectionView.dataSource = self?.dataSource
+                strongSelf.activityIndicator.stopAnimating()
+                strongSelf.activityIndicator.removeFromSuperview()
                 
             case .failure(let error):
-                if !self.instagramClient.isAuthenticated {
-                    let loginController = LoginViewController(instagramClient: self.instagramClient)
+                if !strongSelf.instagramClient.isAuthenticated {
+                    let loginController = LoginViewController(instagramClient: strongSelf.instagramClient)
                     let navigationController = UINavigationController(rootViewController: loginController)
-                    self.present(navigationController, animated: true, completion: nil)
+                    strongSelf.present(navigationController, animated: true, completion: nil)
                     
                 } else {
                     let localizedError = NSLocalizedString("Error", comment: "")
                     
                     guard let instagramError = error as? InstagramError else {
-                        self.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
+                        strongSelf.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
                         return
                     }
                     
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.removeFromSuperview()
+                    strongSelf.activityIndicator.stopAnimating()
+                    strongSelf.activityIndicator.removeFromSuperview()
                     
-                    self.presentAlert(withTitle: localizedError, andMessage: instagramError.errorDescription)
+                    strongSelf.presentAlert(withTitle: localizedError, andMessage: instagramError.errorDescription)
                 }
             }
         }
@@ -104,6 +108,16 @@ class ImageBrowsingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+// MARK: - CollectionViewDelegate
+extension ImageBrowsingViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let instagramMedia = instagramMedia {
+            let mediaItem = instagramMedia[indexPath.row]
+        }
+    }
 }
 
 // MARK: - CollectionViewDelegateFlowLayout
