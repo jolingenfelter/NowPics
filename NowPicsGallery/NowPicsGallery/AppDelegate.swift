@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.backgroundColor = .white
         window.makeKeyAndVisible()
         
-        let instagramClient = InstagramClient()
-        instagramClient.logOut()
+        let instagramClient = InstagramClient.shared
+ 
         let browserViewController = ImageBrowsingViewController(instagramClient: instagramClient)
         let navigationController = UINavigationController(rootViewController: browserViewController)
         window.rootViewController = navigationController

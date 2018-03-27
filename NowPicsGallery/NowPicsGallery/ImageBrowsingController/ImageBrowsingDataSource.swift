@@ -10,12 +10,12 @@ import UIKit
 
 class ImageBrowsingDataSource: NSObject {
     
-    var instagramMediaItems: [InstagramMedia]
+    var instagramMedia: [InstagramMedia]?
     let collectionView: UICollectionView
     
-    init(collectionView: UICollectionView, instagramMediaItems: [InstagramMedia]) {
+    init(collectionView: UICollectionView, instagramMedia: [InstagramMedia]?) {
         self.collectionView = collectionView
-        self.instagramMediaItems = instagramMediaItems
+        self.instagramMedia = instagramMedia
 
     }
 }
@@ -23,7 +23,11 @@ class ImageBrowsingDataSource: NSObject {
 extension ImageBrowsingDataSource: UICollectionViewDataSource {
  
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return instagramMediaItems.count
+        
+        if let instagramMedia = instagramMedia {
+            return instagramMedia.count
+        }
+        return 0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -31,7 +35,14 @@ extension ImageBrowsingDataSource: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.cellForItem(at: indexPath) as! MediaViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaViewCell.reuseIdentifier, for: indexPath) as! MediaViewCell
+        
+        if let instagramMedia = instagramMedia {
+            let mediaItem = instagramMedia[indexPath.row]
+
+        }
+        
+        cell.imageView.backgroundColor = .blue
         
         return cell
     }

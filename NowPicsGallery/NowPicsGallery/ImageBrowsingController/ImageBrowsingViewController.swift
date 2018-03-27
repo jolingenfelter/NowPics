@@ -11,9 +11,14 @@ import UIKit
 class ImageBrowsingViewController: UIViewController {
     
     var collectionView: UICollectionView!
+    var instagramMedia: [InstagramMedia]?
     let instagramClient: InstagramClient
     
     fileprivate let itemsPerRow: CGFloat = 3
+    
+    lazy var dataSource: ImageBrowsingDataSource = {
+        return ImageBrowsingDataSource(collectionView: self.collectionView, instagramMedia: self.instagramMedia)
+    }()
     
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
@@ -47,14 +52,23 @@ class ImageBrowsingViewController: UIViewController {
     func fetchMedia() {
         instagramClient.fetchUserImages { (result) in
             switch result {
-            case .success(let media): print(media)
+            case .success(let media):
+                self.instagramMedia = media
+                self.collectionView.dataSource = self.dataSource
+
             case .failure(let error):
                 if !self.instagramClient.isAuthenticated {
                     let loginController = LoginViewController(instagramClient: self.instagramClient)
                     let navigationController = UINavigationController(rootViewController: loginController)
                     self.present(navigationController, animated: true, completion: nil)
                 } else {
-                    print(error)
+                    let localizedError = NSLocalizedString("Error", comment: "")
+                    
+                    guard let instagramError = error as? InstagramError else {
+                        self.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
+                        return
+                    }
+                    self.presentAlert(withTitle: localizedError, andMessage: instagramError.errorDescription)
                 }
             }
         }

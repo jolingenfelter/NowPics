@@ -17,11 +17,13 @@ final class InstagramClient: APIClient {
     
     // MARK: - Properties
     
+    static let shared = InstagramClient()
+    
     internal let session: URLSession
     private let keychain: KeychainSwift
     private let API: InstagramAPI
    
-    init() {
+    private init() {
         session = URLSession(configuration: .default)
         keychain = KeychainSwift(keyPrefix: "NowPics_")
         API = InstagramAPI()
