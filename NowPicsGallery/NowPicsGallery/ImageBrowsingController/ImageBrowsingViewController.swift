@@ -34,24 +34,26 @@ class ImageBrowsingViewController: UIViewController {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.register(MediaViewCell.self, forCellWithReuseIdentifier: MediaViewCell.reuseIdentifier)
-
+        collectionView.backgroundColor = .white
+        self.view = collectionView
     
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if !instagramClient.isAuthenticated {
-            let loginController = LoginViewController(instagramClient: instagramClient)
-            let navigationController = UINavigationController(rootViewController: loginController)
-            present(navigationController, animated: true, completion: nil)
-        }
         
         fetchImages()
     }
     
     func fetchImages() {
-        instagramClient.fetchFromInstagram(endpoint: "/media/shortcode/D?", parameters: nil, success: { (media: InstagramMedia?) in
+        instagramClient.fetchFromInstagram(endpoint: "users/self/media/recent/?", parameters: nil, success: { (media: [InstagramMedia]?) in
             print(media)
         }) { (error) in
+            if !self.instagramClient.isAuthenticated {
+                let loginController = LoginViewController(instagramClient: self.instagramClient)
+                let navigationController = UINavigationController(rootViewController: loginController)
+                self.present(navigationController, animated: true, completion: nil)
+            }
+            
             print(error)
         }
     }

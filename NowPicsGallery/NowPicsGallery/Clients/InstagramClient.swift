@@ -57,7 +57,8 @@ final class InstagramClient: APIClient {
                 } else {
                     failure?(InstagramError.unknownError)
                 }
-            } catch {
+            } catch let error {
+                print(error)
                 failure?(InstagramError.dataParsingError)
             }
         }) { error in

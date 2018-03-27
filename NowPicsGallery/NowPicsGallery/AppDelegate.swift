@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         
         let instagramClient = InstagramClient()
+        instagramClient.logOut()
         let browserViewController = ImageBrowsingViewController(instagramClient: instagramClient)
         let navigationController = UINavigationController(rootViewController: browserViewController)
         window.rootViewController = navigationController

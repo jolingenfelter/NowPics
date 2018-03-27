@@ -12,7 +12,7 @@ struct InstagramAPI {
     
     private struct APIBaseURL {
         static var unauthorized = "https://api.instagram.com/oauth/authorize"
-        static var authorized = "https://api.instagram.com/v1"
+        static var authorized = "https://api.instagram.com/v1/"
         
     }
     
