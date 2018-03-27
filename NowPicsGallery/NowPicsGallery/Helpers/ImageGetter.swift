@@ -10,6 +10,11 @@
 import Foundation
 import UIKit
 
+enum Result<T> {
+    case ok(T)
+    case error(Error)
+}
+
 class ImageGetter {
     
     enum ImageGetterError: Error {
@@ -60,42 +65,34 @@ class ImageGetter {
         let inMemoryCacheName = cacheFileName as NSString
         
         if let cachedImage = cache.object(forKey: inMemoryCacheName) {
-            print("Found image in memory cache, calling completion handler")
             completion(.ok(cachedImage))
         } else if let image = UIImage(contentsOfFile: diskCachePath) {
-            print("Found image on disk cache, adding to memory cache and calling completion handler")
             cache.setObject(image, forKey: inMemoryCacheName)
             completion(.ok(image))
         } else if let existingTask = tasks[url] {
-            print("Already fetching image, adding completion handler to existing task")
             let newTask = Task(sessionTask: existingTask.sessionTask,
                                listeners: existingTask.listeners + [completion],
                                diskCachePath: diskCachePath,
                                inMemoryCacheName: inMemoryCacheName)
             tasks[url] = newTask
         } else {
-            print("Need image from network, creating network task")
             let sessionTask = session.dataTask(with: url, completionHandler: { [weak self] (data, response, error) in
                 guard let strongSelf = self else {
                     return
                     
                 }
-                print("Network task finished for \(url), now handling")
                 strongSelf.handleSessionTaskCompletion(url: url, data: data, response: response, error: error)
             })
-            print("Stored completion handler for when network task completes")
             tasks[url] = Task(sessionTask: sessionTask,
                               listeners: [completion],
                               diskCachePath: diskCachePath,
                               inMemoryCacheName: inMemoryCacheName)
-            print("Starting network task")
             sessionTask.resume()
         }
     }
     
     private func handleSessionTaskCompletion(url: URL, data: Data?, response: URLResponse?, error: Error?) {
         imageGetterQueue.async { [weak self] in
-            print("Handling network task completion on image getter queue")
             guard let strongSelf = self,
                 let task = strongSelf.tasks[url] else {
                     return
@@ -105,20 +102,15 @@ class ImageGetter {
             
             let result: Result<UIImage>
             if let error = error {
-                print("Failed to get image with error \(error)")
-                result = .error(error)
+                    result = .error(error)
             } else if let data = data,
                 let image = UIImage(data: data) {
-                print("Got image, writing to disk cache and adding to memory cache")
                 strongSelf.cache.setObject(image, forKey: task.inMemoryCacheName)
                 try? UIImageJPEGRepresentation(image, 1.0)?.write(to: URL(fileURLWithPath: task.diskCachePath), options: [])
-                result = .ok(image)
+                    result = .ok(image)
             } else {
-                print("Failed to parse image")
                 result = .error(ImageGetterError.unknown)
             }
-            
-            print("Calling all completion handlers (\(task.listeners.count))")
             task.listeners.forEach { $0(result) }
         }
     }

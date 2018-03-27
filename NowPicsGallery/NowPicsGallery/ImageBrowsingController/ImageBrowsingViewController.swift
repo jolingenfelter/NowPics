@@ -46,6 +46,8 @@ class ImageBrowsingViewController: UIViewController {
         collectionView.register(MediaViewCell.self, forCellWithReuseIdentifier: MediaViewCell.reuseIdentifier)
         collectionView.backgroundColor = .white
         self.view = collectionView
+        
+        activityIndicatorSetup()
     
     }
     
@@ -56,8 +58,7 @@ class ImageBrowsingViewController: UIViewController {
     
     func fetchMedia() {
         
-        view.addSubview(activityIndicator)
-        activityIndicatorSetup()
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
         instagramClient.fetchUserImages { [weak self] (result) in
@@ -88,7 +89,7 @@ class ImageBrowsingViewController: UIViewController {
                     }
                     
                     strongSelf.activityIndicator.stopAnimating()
-                    strongSelf.activityIndicator.removeFromSuperview()
+                    strongSelf.activityIndicator.isHidden = true
                     
                     strongSelf.presentAlert(withTitle: localizedError, andMessage: instagramError.errorDescription)
                 }
@@ -97,11 +98,14 @@ class ImageBrowsingViewController: UIViewController {
     }
     
     func activityIndicatorSetup() {
+        view.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
+        
+        activityIndicator.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {

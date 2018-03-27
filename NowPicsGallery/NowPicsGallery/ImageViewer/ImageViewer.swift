@@ -10,9 +10,11 @@ import UIKit
 
 class ImageViewer: UIViewController {
     
+    fileprivate let activityIndicator = UIActivityIndicatorView()
     fileprivate let imageScrollView = ImageScrollView()
     fileprivate let imageURL: URL
     fileprivate let imageGetter: ImageGetter
+    fileprivate var downloadedImage: UIImage?
     
     init(imageGetter: ImageGetter, imageURL: URL) {
         self.imageURL = imageURL
@@ -23,16 +25,15 @@ class ImageViewer: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        imageScrollViewSetup()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
+        
+        imageScrollViewSetup()
+        activityIndicatorSetup()
+        prepareImage()
 
     }
     
@@ -46,6 +47,43 @@ class ImageViewer: UIViewController {
             imageScrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             imageScrollView.rightAnchor.constraint(equalTo: view.rightAnchor)
             ])
+    }
+    
+    func activityIndicatorSetup() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        imageScrollView.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
+        
+        activityIndicator.isHidden = true
+    }
+    
+    func prepareImage() {
+        
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        
+        imageGetter.getImage(from: imageURL) { (result) in
+            switch result {
+            case .ok(let image):
+                DispatchQueue.main.async {
+                    self.downloadedImage = image
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    self.imageScrollView.displayImage(image)
+                }
+            case .error(let error):
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    let localizedError = NSLocalizedString("Error", comment: "")
+                    self.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
