@@ -11,12 +11,27 @@ import UIKit
 class ImageViewer: UIViewController {
     
     fileprivate let imageScrollView = ImageScrollView()
+    fileprivate let image: UIImage
+    
+    init(image: UIImage) {
+        self.image = image
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        imageScrollViewSetup()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        imageScrollViewSetup()
+        imageScrollView.displayImage(image)
     }
     
     func imageScrollViewSetup() {

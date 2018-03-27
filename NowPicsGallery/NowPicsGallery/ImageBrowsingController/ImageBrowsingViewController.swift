@@ -15,6 +15,7 @@ class ImageBrowsingViewController: UIViewController {
     
     fileprivate var instagramMedia: [InstagramMedia]?
     fileprivate let instagramClient: InstagramClient
+    fileprivate let imageGetter = ImageGetter()
 
     fileprivate let itemsPerRow: CGFloat = 3
     fileprivate let edgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
@@ -111,11 +112,24 @@ class ImageBrowsingViewController: UIViewController {
 }
 
 // MARK: - CollectionViewDelegate
+
 extension ImageBrowsingViewController: UICollectionViewDelegate {
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let instagramMedia = instagramMedia {
             let mediaItem = instagramMedia[indexPath.row]
+            let imageURL = mediaItem.images.standardResolution.url
+            
+            imageGetter.getImage(from: imageURL, completion: { [weak self] (result) in
+                switch result {
+                case .ok(let image):
+                    let imageViewer = ImageViewer(image: image)
+                    let navigationController = UINavigationController(rootViewController: imageViewer)
+                    self?.present(navigationController, animated: true, completion: nil)
+                case .error(let error):
+                    let localizedError = NSLocalizedString("Error", comment: "")
+                    self?.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
+                }
+            })
         }
     }
 }

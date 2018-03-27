@@ -64,6 +64,11 @@ class LoginViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // TODO: - Check for internet connection
+    }
+    
     func webViewSetup() -> WKWebView {
         let webConfiguration = WKWebViewConfiguration()
         webConfiguration.websiteDataStore = .nonPersistent()
@@ -103,10 +108,6 @@ class LoginViewController: UIViewController {
 // MARK: - WebKitNavigationDelegate
 
 extension LoginViewController: WKNavigationDelegate {
-    
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        // TODO: - Check for network connection here
-    }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         navigationItem.title = webView.title
