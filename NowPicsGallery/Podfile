@@ -6,7 +6,7 @@ target 'NowPicsGallery' do
   use_frameworks!
 
   # Pods for NowPicsGallery
-	pod 'Nuke', '~> 6.0'
+	pod 'Nuke', '~> 6.1'
 
   target 'NowPicsGalleryTests' do
     inherit! :search_paths
