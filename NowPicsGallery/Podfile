@@ -7,6 +7,7 @@ target 'NowPicsGallery' do
 
   # Pods for NowPicsGallery
 	pod 'Nuke', '~> 6.1'
+	pod 'ReachabilitySwift'
 
   target 'NowPicsGalleryTests' do
     inherit! :search_paths

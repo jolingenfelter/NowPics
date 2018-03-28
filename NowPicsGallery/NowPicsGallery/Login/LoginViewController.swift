@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import Reachability
 
 class LoginViewController: UIViewController {
     
@@ -22,6 +23,7 @@ class LoginViewController: UIViewController {
     var failure: FailureHandler?
     
     let instagramClient: InstagramClient
+    let reachability = Reachability()!
     
     // MARK: - Initializers
     init(instagramClient: InstagramClient) {
@@ -42,15 +44,7 @@ class LoginViewController: UIViewController {
         webView = webViewSetup()
         
         view = LoginView(progressView: progressView, webView: webView)
-        
-        do {
-            let request = try instagramClient.authorizationRequest(scopes: [.all])
-            webView.load(request)
-        } catch InstagramError.invalidRequest{
-            presentAlert(withTitle: "Error", andMessage: InstagramError.invalidRequest.errorDescription)
-        } catch let error {
-            presentAlert(withTitle: "Error", andMessage: error.localizedDescription)
-        }
+        request()
         
         // Handlers
         success = { accessToken in
@@ -64,9 +58,18 @@ class LoginViewController: UIViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // TODO: - Check for internet connection
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Reachability Setup
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: nil)
+        do {
+            try reachability.startNotifier()
+        } catch {
+            let localizedError = NSLocalizedString("Error", comment: "")
+            let localizedDescription = NSLocalizedString("Could not start reachability notifier", comment: "")
+            self.presentAlert(withTitle: localizedError, andMessage: localizedDescription)
+        }
     }
     
     func webViewSetup() -> WKWebView {
@@ -97,6 +100,30 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func request() {
+        do {
+            let request = try instagramClient.authorizationRequest(scopes: [.all])
+            webView.load(request)
+        } catch InstagramError.invalidRequest{
+            presentAlert(withTitle: "Error", andMessage: InstagramError.invalidRequest.errorDescription)
+        } catch let error {
+            presentAlert(withTitle: "Error", andMessage: error.localizedDescription)
+        }
+    }
+    
+    @objc func reachabilityChanged(note: Notification) {
+        let reachability = note.object as! Reachability
+        
+        switch reachability.connection {
+        case .none:
+            let localizedError = NSLocalizedString("Error", comment: "")
+            let localizedDescription = NSLocalizedString("Check your internet connection", comment: "")
+            presentAlert(withTitle: localizedError, andMessage: localizedDescription)
+        case .wifi, .cellular:
+            request()
+        }
     }
     
     deinit {
