@@ -15,7 +15,7 @@
 		6323EEFD20686A840000E334 /* ImageBrowsingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323EEFC20686A840000E334 /* ImageBrowsingViewController.swift */; };
 		6323EF0120686F710000E334 /* MediaViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323EF0020686F710000E334 /* MediaViewCell.swift */; };
 		632422192069BE3000CFAEC3 /* ImageBrowsingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632422182069BE3000CFAEC3 /* ImageBrowsingDataSource.swift */; };
-		6397BADF206BD4CF00358E8B /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6397BADE206BD4CF00358E8B /* APIClient.swift */; };
+		6397BAE1206BD5D800358E8B /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6397BAE0206BD5D800358E8B /* APIClient.swift */; };
 		639C7176206AD4300017C2D5 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C7175206AD4300017C2D5 /* ImageScrollView.swift */; };
 		639C7179206AD49A0017C2D5 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C7178206AD49A0017C2D5 /* ImageViewer.swift */; };
 		639C717B206AD7B90017C2D5 /* ImageGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C717A206AD7B90017C2D5 /* ImageGetter.swift */; };
@@ -56,7 +56,7 @@
 		6323EEFC20686A840000E334 /* ImageBrowsingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBrowsingViewController.swift; sourceTree = "<group>"; };
 		6323EF0020686F710000E334 /* MediaViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewCell.swift; sourceTree = "<group>"; };
 		632422182069BE3000CFAEC3 /* ImageBrowsingDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBrowsingDataSource.swift; sourceTree = "<group>"; };
-		6397BADE206BD4CF00358E8B /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = ../../../../Playgrounds/InstagramDataPractice.playground/Sources/APIClient.swift; sourceTree = "<group>"; };
+		6397BAE0206BD5D800358E8B /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		639C7175206AD4300017C2D5 /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		639C7178206AD49A0017C2D5 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		639C717A206AD7B90017C2D5 /* ImageGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGetter.swift; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 		63E932442066C1160078CA68 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				6397BADE206BD4CF00358E8B /* APIClient.swift */,
+				6397BAE0206BD5D800358E8B /* APIClient.swift */,
 				63E932402066BD060078CA68 /* InstagramClient.swift */,
 				63E932422066BD390078CA68 /* InstagramClient.plist */,
 				63E932512066D9990078CA68 /* API */,
@@ -460,11 +460,11 @@
 				63C1ACFC206707EC00E58521 /* URL Extension.swift in Sources */,
 				63E932232066BB290078CA68 /* LoginViewController.swift in Sources */,
 				63E932212066BB290078CA68 /* AppDelegate.swift in Sources */,
-				6397BADF206BD4CF00358E8B /* APIClient.swift in Sources */,
 				639C7176206AD4300017C2D5 /* ImageScrollView.swift in Sources */,
 				6323EEFD20686A840000E334 /* ImageBrowsingViewController.swift in Sources */,
 				63E9324A2066C68F0078CA68 /* InstagramScope.swift in Sources */,
 				6323EEFA206861CF0000E334 /* UIViewController Extension.swift in Sources */,
+				6397BAE1206BD5D800358E8B /* APIClient.swift in Sources */,
 				63C1ACFE206707F500E58521 /* KeychainSwift.swift in Sources */,
 				63E932412066BD060078CA68 /* InstagramClient.swift in Sources */,
 				639C717B206AD7B90017C2D5 /* ImageGetter.swift in Sources */,
