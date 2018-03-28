@@ -31,8 +31,8 @@ class LoginView: UIView {
     }
     
     private func webViewLayout() {
-        webView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: progressView.bottomAnchor),
@@ -45,9 +45,9 @@ class LoginView: UIView {
     private func progressViewLayout() {
         progressView.progress = 0.0
         progressView.tintColor = UIColor(red: 0.88, green: 0.19, blue: 0.42, alpha: 1.0)
-        progressView.translatesAutoresizingMaskIntoConstraints = false
-        
         addSubview(progressView)
+        
+        progressView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             progressView.topAnchor.constraint(equalTo: self.topAnchor),

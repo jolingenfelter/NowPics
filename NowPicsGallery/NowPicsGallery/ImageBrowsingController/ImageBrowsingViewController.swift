@@ -40,6 +40,8 @@ class ImageBrowsingViewController: UIViewController {
         self.title = "NowPics Gallery"
         
         edgesForExtendedLayout = []
+        
+        // CollectionViewSetup
         let flowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
@@ -47,7 +49,12 @@ class ImageBrowsingViewController: UIViewController {
         collectionView.backgroundColor = .white
         self.view = collectionView
         
+        // ActivityIndicatorView
         activityIndicatorSetup()
+        
+        // NavBarSetup
+        let logoutButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
+        navigationItem.rightBarButtonItem = logoutButton
     
     }
     
@@ -109,6 +116,14 @@ class ImageBrowsingViewController: UIViewController {
             ])
         
         activityIndicator.isHidden = true
+    }
+    
+    @objc func logout() {
+        instagramClient.logOut()
+        
+        let loginVC = LoginViewController(instagramClient: instagramClient)
+        let navigationController = UINavigationController(rootViewController: loginVC)
+        self.present(navigationController, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
