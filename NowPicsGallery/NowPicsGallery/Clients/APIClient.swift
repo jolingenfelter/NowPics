@@ -33,33 +33,28 @@ extension APIClient {
                     }
                     return
                 }
-                
-                if let data = data {
-                    switch HTTPURLResponse.statusCode {
-                    case 200:
-                        DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if let data = data {
+                        switch HTTPURLResponse.statusCode {
+                        case 200:
                             success?(data)
-                        }
-                    default:
-                        let userInfo = [NSLocalizedDescriptionKey: NSLocalizedString("Received HTTPURLREsponse: \(HTTPURLResponse.statusCode)", comment: "")]
-                        let error = NSError(domain: JLNetworkingErrorDomain, code: UnhandledResponse, userInfo: userInfo)
-                        DispatchQueue.main.async {
-                            failure?(error)
-                        }
-                    }
-                } else {
-                    if let error = error {
-                        DispatchQueue.main.async {
-                            failure?(error)
+                        default:
+                            let userInfo = [NSLocalizedDescriptionKey: NSLocalizedString("Received HTTPURLREsponse: \(HTTPURLResponse.statusCode)", comment: "")]
+                            let error = NSError(domain: JLNetworkingErrorDomain, code: UnhandledResponse, userInfo: userInfo)
+                                failure?(error)
                         }
                     } else {
-                        let userInfo = [NSLocalizedDescriptionKey: "An abnormal error occured"]
-                        let error = NSError(domain: JLNetworkingErrorDomain, code: AbnormalError, userInfo: userInfo)
-                        failure?(error)
+                        if let error = error {
+                            failure?(error)
+                        } else {
+                            let userInfo = [NSLocalizedDescriptionKey: "An abnormal error occured"]
+                            let error = NSError(domain: JLNetworkingErrorDomain, code: AbnormalError, userInfo: userInfo)
+                            failure?(error)
+                        }
                     }
                 }
+                
             }
-            
             task.resume()
         }
 
