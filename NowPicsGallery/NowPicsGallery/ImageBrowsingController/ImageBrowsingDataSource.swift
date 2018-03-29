@@ -39,7 +39,7 @@ extension ImageBrowsingDataSource: UICollectionViewDataSource {
         
         if let instagramMedia = instagramMedia {
             let mediaItem = instagramMedia[indexPath.row]
-            let imageURL = mediaItem.images.thumbnail.url
+            let imageURL = mediaItem.images.standardResolution.url
             cell.configureCellwithImage(atURL: imageURL)
         }
         

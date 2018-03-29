@@ -7,36 +7,34 @@
 //
 
 import UIKit
+import Nuke
 
 class ImageViewer: UIViewController {
     
     fileprivate let activityIndicator = UIActivityIndicatorView()
     fileprivate let imageScrollView = ImageScrollView()
     fileprivate let imageURL: URL
-    fileprivate let imageGetter: ImageGetter
     fileprivate var downloadedImage: UIImage?
     fileprivate var saveOrShareButton: UIBarButtonItem?
     
-    init(imageGetter: ImageGetter, imageURL: URL) {
+    init(imageURL: URL) {
         self.imageURL = imageURL
-        self.imageGetter = imageGetter
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
         
         navBarSetup()
+        prepareImage()
         imageScrollViewSetup()
         activityIndicatorSetup()
-        prepareImage()
-
     }
     
     func imageScrollViewSetup() {
@@ -69,22 +67,17 @@ class ImageViewer: UIViewController {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
-        imageGetter.getImage(from: imageURL) { (result) in
+        Manager.shared.loadImage(with: imageURL) { (result) in
             switch result {
-            case .ok(let image):
-                DispatchQueue.main.async {
-                    self.downloadedImage = image
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
-                    self.imageScrollView.displayImage(image)
-                }
-            case .error(let error):
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
-                    let localizedError = NSLocalizedString("Error", comment: "")
-                    self.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
-                }
+            case .success(let image):
+                self.imageScrollView.displayImage(image)
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+            case .failure(let error):
+                let localizedError = NSLocalizedString("Error", comment: "")
+                self.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
             }
         }
     }

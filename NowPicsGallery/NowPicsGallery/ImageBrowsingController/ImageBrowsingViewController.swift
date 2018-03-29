@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class ImageBrowsingViewController: UIViewController {
     
@@ -15,7 +16,6 @@ class ImageBrowsingViewController: UIViewController {
     
     fileprivate var instagramMedia: [InstagramMedia]?
     fileprivate let instagramClient: InstagramClient
-    fileprivate let imageGetter = ImageGetter()
 
     fileprivate let itemsPerRow: CGFloat = 3
     fileprivate let edgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
@@ -140,7 +140,7 @@ extension ImageBrowsingViewController: UICollectionViewDelegate {
         if let instagramMedia = instagramMedia {
             let mediaItem = instagramMedia[indexPath.row]
             let imageURL = mediaItem.images.standardResolution.url
-            let imageViewer = ImageViewer(imageGetter: imageGetter, imageURL: imageURL)
+            let imageViewer = ImageViewer(imageURL: imageURL)
             let navigationController = UINavigationController(rootViewController: imageViewer)
             self.navigationController?.present(navigationController, animated: true, completion: nil)
         }
