@@ -73,6 +73,7 @@ class ImageViewer: UIViewController {
                 self.imageScrollView.displayImage(image)
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
+                self.downloadedImage = image
             case .failure(let error):
                 let localizedError = NSLocalizedString("Error", comment: "")
                 self.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
