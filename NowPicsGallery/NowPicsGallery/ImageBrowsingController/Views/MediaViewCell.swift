@@ -35,6 +35,7 @@ class MediaViewCell: UICollectionViewCell {
     
     func configureCellwithImage(atURL: URL) {
         self.clipsToBounds = true
+        self.imageView.contentMode = .scaleAspectFit
         Manager.shared.loadImage(with: atURL, into: imageView)
     }
 }
