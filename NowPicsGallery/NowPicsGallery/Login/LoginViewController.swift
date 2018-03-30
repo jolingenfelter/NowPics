@@ -130,6 +130,11 @@ class LoginViewController: UIViewController {
         progressView.removeFromSuperview()
         webViewProgressObservation.invalidate()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        reachability.stopNotifier()
+    }
 }
 
 // MARK: - WebKitNavigationDelegate
