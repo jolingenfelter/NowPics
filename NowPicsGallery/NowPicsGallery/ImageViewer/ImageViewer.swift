@@ -67,18 +67,19 @@ class ImageViewer: UIViewController {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
-        Manager.shared.loadImage(with: imageURL) { (result) in
+        Manager.shared.loadImage(with: imageURL) { [weak self] (result) in
+            guard let strongSelf = self else { return }
             switch result {
             case .success(let image):
-                self.imageScrollView.displayImage(image)
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
-                self.downloadedImage = image
+                strongSelf.imageScrollView.displayImage(image)
+                strongSelf.activityIndicator.stopAnimating()
+                strongSelf.activityIndicator.isHidden = true
+                strongSelf.downloadedImage = image
             case .failure(let error):
                 let localizedError = NSLocalizedString("Error", comment: "")
-                self.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
+                strongSelf.presentAlert(withTitle: localizedError, andMessage: error.localizedDescription)
+                strongSelf.activityIndicator.stopAnimating()
+                strongSelf.activityIndicator.isHidden = true
             }
         }
     }
