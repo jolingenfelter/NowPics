@@ -35,9 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navBarAppearance.isTranslucent = false
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
-        // StatusBar
-        UIApplication.shared.statusBarStyle = .lightContent
-        
         return true
     }
 
