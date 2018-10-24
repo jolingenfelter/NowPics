@@ -9,23 +9,15 @@
 import UIKit
 
 final class InstagramClient: APIClient {
-    
-    // MARK: - Types
-    private struct KeychainKeys {
-        static let accessToken = "AccessToken"
-    }
-    
     // MARK: - Properties
     
     static let shared = InstagramClient()
     
     internal let session: URLSession
-    private let keychain: KeychainSwift
     private let API: InstagramAPI
    
     private init() {
         session = URLSession(configuration: .default)
-        keychain = KeychainSwift(keyPrefix: "NowPics_")
         API = InstagramAPI()
     }
     
@@ -39,7 +31,7 @@ final class InstagramClient: APIClient {
     
     // MARK: - Fetch Media
     private func fetchFromInstagram<T: Decodable>(endpoint: String, parameters: [String: Any]?, success: ((_ data: T) -> Void)?, failure: ((Error) -> Void)?) {
-        guard let accessToken = retrieveAccessToken() else {
+        guard let accessToken = KeychainController.retrieveAccessToken() else {
             failure?(InstagramError.missingAccessToken)
             return
         }
@@ -75,29 +67,6 @@ final class InstagramClient: APIClient {
         }) { error in
             completion(.failure(error))
         }
-    }
-  
-    // MARK: - Keychain
-    
-    public var isAuthenticated: Bool {
-        return retrieveAccessToken() != nil
-    }
-    
-    // Returns active access token
-    public func retrieveAccessToken() -> String? {
-        return keychain.get(KeychainKeys.accessToken)
-    }
-    
-    private func deleteAccessToken() {
-        keychain.delete(KeychainKeys.accessToken)
-    }
-    
-    public func logOut() {
-        deleteAccessToken()
-    }
-    
-    public func storeAccessToken(_ accessToken: String) {
-        keychain.set(accessToken, forKey: KeychainKeys.accessToken)
     }
 }
 

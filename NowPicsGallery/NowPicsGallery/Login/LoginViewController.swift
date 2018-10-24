@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
         
         // Handlers
         success = { accessToken in
-            self.instagramClient.storeAccessToken(accessToken)
+            KeychainController.storeAccessToken(accessToken)
             self.dismiss(animated: true, completion: nil)
         }
         

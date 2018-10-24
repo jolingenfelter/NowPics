@@ -82,14 +82,14 @@ class ImageBrowsingViewController: UIViewController {
                 strongSelf.activityIndicator.removeFromSuperview()
                 
             case .failure(let error):
-                if !strongSelf.instagramClient.isAuthenticated {
+                if KeychainController.isAuthenticated {
                     let loginController = LoginViewController(instagramClient: strongSelf.instagramClient)
                     let navigationController = UINavigationController(rootViewController: loginController)
                     strongSelf.present(navigationController, animated: true, completion: nil)
                     
                 } else {
                     
-                    strongSelf.instagramClient.logOut()
+                    KeychainController.logOut()
                     let localizedError = NSLocalizedString("Error", comment: "")
                     
                     guard let instagramError = error as? InstagramError else {
@@ -119,7 +119,7 @@ class ImageBrowsingViewController: UIViewController {
     }
     
     @objc func logout() {
-        instagramClient.logOut()
+        KeychainController.logOut()
         
         let loginVC = LoginViewController(instagramClient: instagramClient)
         let navigationController = UINavigationController(rootViewController: loginVC)
