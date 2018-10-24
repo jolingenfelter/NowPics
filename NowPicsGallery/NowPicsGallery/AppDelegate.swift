@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     static let navBarColor = UIColor(red: 0/255, green: 110/255, blue: 128/255, alpha: 1.0)
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         guard let window = window else { return false }
@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navBarAppearance.barTintColor = AppDelegate.navBarColor
         navBarAppearance.tintColor = .white
         navBarAppearance.isTranslucent = false
-        navBarAppearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         // StatusBar
         UIApplication.shared.statusBarStyle = .lightContent
